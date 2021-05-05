@@ -31,7 +31,7 @@ USE_USER_TEXT = False
 
 
 def get_poem(first_line=None):
-    gen_lines = "\n".join([markov_generate() for i in range(N_LINES)])
+    gen_lines = markov_generate()
 
     if first_line is None:
         return gen_lines

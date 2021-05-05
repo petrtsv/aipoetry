@@ -1,6 +1,6 @@
 import markovify
 
-with open('data.txt', encoding='utf-8') as f:
+with open('poetry_dataset.txt', encoding='utf-8') as f:
     read_text = f.read()
 
 model = markovify.NewlineText(read_text)
