@@ -1,1 +1,1 @@
-worker: python tgbot.py
+release: python tgbot.py
