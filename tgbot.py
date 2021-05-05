@@ -23,7 +23,7 @@ def main() -> None:
 
     dispatcher = updater.dispatcher
 
-    dispatcher.add_handler(CommandHandler(['start, help'], help_handler))
+    dispatcher.add_handler(CommandHandler(['start', 'help'], help_handler))
 
     updater.start_polling()
     updater.idle()
