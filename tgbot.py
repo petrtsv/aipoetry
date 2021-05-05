@@ -1,9 +1,10 @@
 import logging
 import os
-import uuid
 
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CallbackContext, CommandHandler, MessageHandler, Filters
+
+from markov import markov_generate
 
 # Enable logging
 logging.basicConfig(
@@ -25,15 +26,23 @@ def get_keyboard_markup():
     return InlineKeyboardMarkup(keyboard)
 
 
+N_LINES = 4
+USE_USER_TEXT = False
+
+
+def get_poem(first_line=None):
+    gen_lines = "\n".join([markov_generate() for i in range(N_LINES)])
+
+    if first_line is None:
+        return gen_lines
+    else:
+        return f'*{first_line}*\n{gen_lines}'
+
+
 def new_poem_handler(update: Update, context: CallbackContext):
-    user_line = update.message.text
+    text = get_poem(update.message.text if USE_USER_TEXT else None)
 
-    gen_lines = "\n".join([str(uuid.uuid4()) for i in range(3)])
-
-    update.message.reply_text(
-        f'*{user_line}*\n{gen_lines}',
-        parse_mode=ParseMode.MARKDOWN
-    )
+    update.message.reply_text(text)
 
 
 def main() -> None:
