@@ -1,1 +1,1 @@
-release: python tgbot.py
+web: python tgbot.py
