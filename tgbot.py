@@ -6,12 +6,12 @@ from telegram.ext import Updater, CallbackContext, CommandHandler, MessageHandle
 
 from markov import markov_generate
 
-if 'PORT' in os.environ:
-    import socket
-
-    echoSocket = socket.socket()
-    echoSocket.bind(('', os.environ.get('PORT')))
-    echoSocket.listen()
+# if 'PORT' in os.environ:
+#     import socket
+#
+#     echoSocket = socket.socket()
+#     echoSocket.bind(('', os.environ.get('PORT')))
+#     echoSocket.listen()
 
 # Enable logging
 logging.basicConfig(
