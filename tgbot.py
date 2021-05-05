@@ -1,7 +1,8 @@
 import logging
 import os
+import uuid
 
-from telegram import Update
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
 from telegram.ext import Updater, CallbackContext, CommandHandler
 
 # Enable logging
@@ -14,6 +15,25 @@ logger = logging.getLogger(__name__)
 
 def help_handler(update: Update, context: CallbackContext):
     update.message.reply_text("Отправь мне первую строчку на русском языке и получи четверостишье, сочиненное машиной!")
+
+
+def get_keyboard_markup():
+    keyboard = [
+        [InlineKeyboardButton("Сгенерировать заново", callback_data='generate_new')],
+    ]
+
+    return InlineKeyboardMarkup(keyboard)
+
+
+def new_poem_handler(update: Update, context: CallbackContext):
+    user_line = update.message.text
+
+    gen_lines = "\n".join([str(uuid.uuid4()) for i in range(3)])
+
+    update.message.reply_text(
+        f'*{user_line}*\n{gen_lines}',
+        parse_mode=ParseMode.MARKDOWN
+    )
 
 
 def main() -> None:
