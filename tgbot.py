@@ -3,7 +3,7 @@ import os
 import uuid
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
-from telegram.ext import Updater, CallbackContext, CommandHandler
+from telegram.ext import Updater, CallbackContext, CommandHandler, MessageHandler, Filters
 
 # Enable logging
 logging.basicConfig(
@@ -44,6 +44,7 @@ def main() -> None:
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler(['start', 'help'], help_handler))
+    dispatcher.add_handler(MessageHandler(Filters.text, new_poem_handler))
 
     updater.start_polling()
     updater.idle()
